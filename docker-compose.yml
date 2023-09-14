@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  app:
+    image: go:8.0
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    volumes:
+      - ./images:/var/www/html/appTest/images
+   
+
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: bdms_staff_admin
+      MYSQL_PASSWORD: sfhakjfhyiqundfgs3765827635
+      MYSQL_DATABASE: bdms_staff
+    ports:
+      - "3307:3306"
+
+
+  apache:
+    image: httpd:2.4
+    volumes:
+      - ./images:/var/www/html/appTest/images
+    ports:
+      - "80:80"
